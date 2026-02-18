@@ -1247,3 +1247,67 @@ main.section .grid.grid--3 .card__body{
 .thumbCarousel__dot.is-active{
   background: #fff;
 }
+
+/* ===== BACK TO TOP ===== */
+
+#backToTop {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* show */
+#backToTop.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* arrow */
+#backToTop .arrow {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  position: relative;
+  z-index: 2;
+}
+
+/* progress ring */
+.progress-ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.progress-ring__bg {
+  fill: transparent;
+  stroke: #eee;
+}
+
+.progress-ring__progress {
+  fill: transparent;
+  stroke: #6D28D9;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* hover */
+#backToTop:hover {
+  transform: translateY(-2px);
+}

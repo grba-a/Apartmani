@@ -1,13 +1,16 @@
 /* =========================
-   Apartments Grbić — main.js (CLEAN + STABLE)
+   Apartments Grbić — main.js (SEO + STABLE)
    - HR/EN language toggle (data-i18n)
+   - Best-effort SEO metadata sync per language (title/description/OG/Twitter)
+   - lang from URL (?lang=en|hr), then localStorage fallback
    - Works on index + subpages (blog/privacy/terms)
    - Mobile nav toggle (accessible)
    - Reveal on scroll (IntersectionObserver)
    - Scroll progress bar
    - Contact form placeholder toast
    - Reviews stars
-   - Gallery lightbox
+   - Gallery + apartment lightbox
+   - Apartment thumb carousels
 ========================= */
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -411,7 +414,6 @@ const dict = {
         Email: <strong>apt.grbic.mlini@gmail.com</strong><br>
         Phone: <strong>+385 98 96 000 88</strong>
       </p>
-
       <h2 class="h3" style="margin-top:16px;">2) What data we collect</h2>
       <p class="muted">We only collect what’s necessary to reply and organize your stay:</p>
       <ul class="spec spec--big">
@@ -420,52 +422,43 @@ const dict = {
         <li>dates, number of guests, preferred apartment</li>
         <li>message (optional)</li>
       </ul>
-
       <h2 class="h3" style="margin-top:16px;">3) Contact form</h2>
       <p class="muted">
         The contact form is currently in demo mode (it does not send data automatically).
         If we enable it later, data will be used only to reply and arrange the booking.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">4) Purpose & legal basis</h2>
       <ul class="spec spec--big">
         <li><strong>Replying to inquiries / booking:</strong> actions at your request and/or legitimate interest.</li>
         <li><strong>Website functionality:</strong> legitimate interest (security and maintenance).</li>
       </ul>
-
       <h2 class="h3" style="margin-top:16px;">5) Analytics & marketing tools</h2>
       <p class="muted">
         We currently do not use Google Analytics, Meta Pixel, or similar tools.
         If introduced in the future, this policy will be updated.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">6) Cookies</h2>
       <p class="muted">
         This site may use only essential cookies set by your browser or hosting for basic functionality.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">7) Sharing data</h2>
       <p class="muted">
         We do not sell your data and do not share it with third parties unless necessary to respond
         or required by law.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">8) Retention</h2>
       <p class="muted">
         We keep data as long as needed for communication and organizing your stay, plus a reasonable period for records.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">9) Your rights</h2>
       <p class="muted">
         You may request access, correction, deletion, restriction, or object to processing.
         Contact <strong>apt.grbic.mlini@gmail.com</strong>.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">10) Contact</h2>
       <p class="muted">
         For privacy questions email <strong>apt.grbic.mlini@gmail.com</strong>.
       </p>
-
       <p class="tiny muted" style="margin-top:16px;">
         Last updated: <strong>15.02.2026.</strong>
       </p>
@@ -476,48 +469,40 @@ const dict = {
         This website provides information about <strong>Apartments Grbić</strong> (Mlini, Croatia).
         We try to keep information accurate, but changes may occur without notice.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">2) Inquiries & bookings</h2>
       <p class="muted">
         Sending an inquiry does not automatically confirm a booking.
         A booking is valid only after availability is confirmed and agreed with the host.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">3) Photos & content</h2>
       <p class="muted">
         Photos and descriptions are informational. Small differences may occur due to season, lighting, renovations, etc.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">4) External links</h2>
       <p class="muted">
         The site may include links to external services (Google Maps, Booking, Tripadvisor, Instagram).
         We are not responsible for their content or privacy policies.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">5) Intellectual property</h2>
       <p class="muted">
         Content (texts, design, logo, photos) is protected. Copying without permission is not allowed
         except for personal, non-commercial use.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">6) Limitation of liability</h2>
       <p class="muted">
         We are not liable for damages arising from using or being unable to use the site
         (outages, errors, technical issues). Use at your own risk.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">7) Changes</h2>
       <p class="muted">
         We may update these terms. The updated version will be published on this page.
       </p>
-
       <h2 class="h3" style="margin-top:16px;">8) Contact</h2>
       <p class="muted">
         Apartments Grbić (Ana Grbić)<br>
         Email: <strong>apt.grbic.mlini@gmail.com</strong><br>
         Phone: <strong>+385 98 96 000 88</strong>
       </p>
-
       <p class="tiny muted" style="margin-top:16px;">
         Last updated: <strong>15.02.2026.</strong>
       </p>
@@ -535,19 +520,59 @@ function cacheOriginalHTML(keys) {
     }
   });
 }
-// Blog cards + privacy/terms bodies (HR lives in HTML)
 cacheOriginalHTML(["blog_card1", "blog_card2", "blog_card3", "privacy_body", "terms_body"]);
 
+/* ---------- SEO helpers (sync meta per language) ---------- */
+function setMetaContent(selector, content) {
+  const el = document.querySelector(selector);
+  if (el && typeof content === "string") el.setAttribute("content", content);
+}
+
+function updateSEOForLang(lang) {
+  const isEN = lang === "en";
+
+  const title = isEN
+    ? "Apartments Grbić | Mlini | Dubrovnik"
+    : "Apartmani Grbić | Mlini | Dubrovnik";
+
+  const description = isEN
+    ? "Modern apartments in Mlini near Dubrovnik. Send an inquiry and check availability."
+    : "Moderni apartmani u Mlinima kraj Dubrovnika. Pošaljite upit i provjerite dostupnost.";
+
+  document.title = title;
+
+  setMetaContent("#metaDescription", description);
+  setMetaContent("#ogTitle", title);
+  setMetaContent("#ogDescription", description);
+  setMetaContent("#twTitle", title);
+  setMetaContent("#twDescription", description);
+
+  setMetaContent("#ogLocale", isEN ? "en_US" : "hr_HR");
+
+  // Best-effort URL labeling (helps sharing; crawlers still see canonical)
+  const url = new URL(window.location.href);
+  url.searchParams.set("lang", lang);
+  setMetaContent("#ogUrl", url.toString());
+}
+
 /* ---------- Language helpers ---------- */
+function getLangFromURL() {
+  const sp = new URLSearchParams(window.location.search);
+  const q = (sp.get("lang") || "").toLowerCase();
+  if (q === "en" || q === "hr") return q;
+  return null;
+}
+
 function getLang() {
+  const fromURL = getLangFromURL();
+  if (fromURL) return fromURL;
+
   const saved = localStorage.getItem(LANG_KEY);
   return saved === "en" || saved === "hr" ? saved : "en";
 }
 
 function applyValue(el, value) {
   if (typeof value !== "string") return;
-
-  // We allow HTML translations (blog cards / long bodies)
   if (value.includes("<")) el.innerHTML = value;
   else el.textContent = value;
 }
@@ -557,31 +582,34 @@ function setLang(lang) {
   if (langLabel) langLabel.textContent = lang.toUpperCase();
   document.documentElement.lang = lang;
 
-  // 1) Apply normal i18n keys
+  // Keep URL in sync (?lang=)
+  const url = new URL(window.location.href);
+  url.searchParams.set("lang", lang);
+  window.history.replaceState({}, "", url.toString());
+
+  // Apply i18n keys
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
     const value = dict?.[lang]?.[key];
 
-    // For HR on large blocks, we restore original HTML instead of dict.hr
     if (lang === "hr" && originalHTML[key]) {
       el.innerHTML = originalHTML[key];
       return;
     }
 
-    // For EN on large blocks, use dict.en html
     if (lang === "en" && typeof value === "string") {
       applyValue(el, value);
       return;
     }
 
-    // For regular keys (both hr/en)
     if (typeof value === "string") {
       applyValue(el, value);
       return;
     }
-
-    // If missing key: do nothing (keeps whatever is in HTML)
   });
+
+  // Sync metadata
+  updateSEOForLang(lang);
 }
 
 /* ---------- Reveal animations ---------- */
@@ -696,7 +724,7 @@ function initStars() {
   });
 }
 
-/* ---------- Gallery lightbox ---------- */
+/* ---------- Gallery + apartment lightbox ---------- */
 function initGallery() {
   const lightbox = document.getElementById("lightbox");
   const imgPreview = lightbox?.querySelector("img");
@@ -709,34 +737,21 @@ function initGallery() {
     });
   });
 
+  // Make apartment carousel images open lightbox too
+  document.querySelectorAll(".thumbCarousel__img").forEach((img) => {
+    img.addEventListener("click", () => {
+      imgPreview.src = img.src;
+      lightbox.classList.add("active");
+    });
+  });
+
   lightbox.addEventListener("click", () => {
     lightbox.classList.remove("active");
   });
-
-  document.querySelectorAll(".thumbCarousel__img").forEach((img) => {
-  img.addEventListener("click", () => {
-    imgPreview.src = img.src;
-    lightbox.classList.add("active");
-  });
-});
 }
 
-/* ---------- Init ---------- */
-setLang(getLang());
-
-langToggle?.addEventListener("click", () => {
-  const next = getLang() === "hr" ? "en" : "hr";
-  setLang(next);
-});
-
-initReveal();
-initNav();
-initScrollProgress();
-initForm();
-initStars();
-initGallery();
-
-function initThumbCarousels(){
+/* ---------- Apartment thumb carousels ---------- */
+function initThumbCarousels() {
   const carousels = document.querySelectorAll(".thumbCarousel");
   if (!carousels.length) return;
 
@@ -767,12 +782,6 @@ function initThumbCarousels(){
       return Math.round(track.scrollLeft / w);
     };
 
-    window.addEventListener("resize", () => {
-      // keep the current slide aligned after resize
-      slideTo(getIndex());
-    }, { passive: true });
-
-
     const setActiveDot = () => {
       const i = Math.max(0, Math.min(imgs.length - 1, getIndex()));
       dots.forEach((d, idx) => d.classList.toggle("is-active", idx === i));
@@ -783,22 +792,81 @@ function initThumbCarousels(){
     prev?.addEventListener("click", () => slideTo(Math.max(0, getIndex() - 1)));
     next?.addEventListener("click", () => slideTo(Math.min(imgs.length - 1, getIndex() + 1)));
 
-    // keyboard support on focused track
     track.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") slideTo(Math.max(0, getIndex() - 1));
       if (e.key === "ArrowRight") slideTo(Math.min(imgs.length - 1, getIndex() + 1));
     });
 
-    // keep dots in sync while scrolling/swiping
     let raf = null;
     track.addEventListener("scroll", () => {
       if (raf) cancelAnimationFrame(raf);
       raf = requestAnimationFrame(setActiveDot);
     }, { passive: true });
 
-    // initial state
+    window.addEventListener("resize", () => {
+      slideTo(getIndex());
+    }, { passive: true });
+
     setActiveDot();
   });
 }
 
+/* ---------- Init ---------- */
+setLang(getLang());
+
+langToggle?.addEventListener("click", () => {
+  const next = getLang() === "hr" ? "en" : "hr";
+  setLang(next);
+});
+
+initReveal();
+initNav();
+initScrollProgress();
+initForm();
+initStars();
+initGallery();
+
 window.addEventListener("load", initThumbCarousels);
+
+/* ---------- Back to top + scroll progress ---------- */
+function initBackToTop() {
+  const btn = document.getElementById("backToTop");
+  if (!btn) return;
+
+  const circle = btn.querySelector(".progress-ring__progress");
+  const radius = 24;
+  const circumference = 2 * Math.PI * radius;
+
+  circle.style.strokeDasharray = `${circumference}`;
+  circle.style.strokeDashoffset = `${circumference}`;
+
+  const update = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+
+    const progress = height > 0 ? scrollTop / height : 0;
+
+    const offset = circumference - progress * circumference;
+    circle.style.strokeDashoffset = offset;
+
+    /* show only after scroll */
+    if (scrollTop > 400) {
+      btn.classList.add("is-visible");
+    } else {
+      btn.classList.remove("is-visible");
+    }
+  };
+
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+
+  /* smooth scroll to top */
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+}
+
+initBackToTop();

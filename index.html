@@ -3,15 +3,65 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Apartments Grbić — modern apartments in Mlini near Dubrovnik. Inquiries and reservations." />
-  <title>Apartments Grbić | Mlini | Dubrovnik </title>
 
-  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Primary SEO -->
+  <title>Apartments Grbić | Mlini | Dubrovnik</title>
+  <meta id="metaDescription" name="description" content="Apartments Grbić — modern apartments in Mlini near Dubrovnik. Inquiries and reservations." />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Canonical + hreflang (single-page, best-effort via query param) -->
+  <link rel="canonical" href="https://apartmentsgrbic.com/" />
+  <link rel="alternate" hreflang="en" href="https://apartmentsgrbic.com/?lang=en" />
+  <link rel="alternate" hreflang="hr" href="https://apartmentsgrbic.com/?lang=hr" />
+  <link rel="alternate" hreflang="x-default" href="https://apartmentsgrbic.com/?lang=en" />
+
+  <!-- Open Graph -->
+  <meta id="ogTitle" property="og:title" content="Apartments Grbić | Mlini | Dubrovnik" />
+  <meta id="ogDescription" property="og:description" content="Modern apartments in Mlini near Dubrovnik. Send an inquiry and check availability." />
+  <meta id="ogUrl" property="og:url" content="https://apartmentsgrbic.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Apartments Grbić" />
+  <meta id="ogLocale" property="og:locale" content="hr_HR" />
+  <!-- Use an existing image file; logo is ok if you don't have a dedicated og image -->
+  <meta property="og:image" content="https://apartmentsgrbic.com/assets/logo.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta id="twTitle" name="twitter:title" content="Apartments Grbić | Mlini | Dubrovnik" />
+  <meta id="twDescription" name="twitter:description" content="Modern apartments in Mlini near Dubrovnik. Send an inquiry and check availability." />
+  <meta name="twitter:image" content="https://apartmentsgrbic.com/assets/logo.jpg" />
+
+  <!-- Performance + UX -->
+  <meta name="theme-color" content="#6D28D9" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
 
+  <!-- Structured data (JSON-LD) -->
+  <script type="application/ld+json" id="ldjson-lodging">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "Apartments Grbić",
+    "url": "https://apartmentsgrbic.com/",
+    "image": "https://apartmentsgrbic.com/assets/logo.jpg",
+    "telephone": "+385989600088",
+    "email": "apt.grbic.mlini@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Mlini",
+      "addressRegion": "Dubrovnik-Neretva County",
+      "addressCountry": "HR"
+    },
+    "sameAs": [
+      "https://www.instagram.com/grbicapartments/",
+      "https://www.tripadvisor.com/Hotel_Review-g658382-d3831572-Reviews-Aparments_Grbic-Mlini_Dubrovnik_Neretva_County_Dalmatia.html",
+      "https://maps.app.goo.gl/79b8VsK1zgCx7ovY9",
+      "https://www.booking.com/hotel/hr/apartmani-grbia.hr.html?chal_t=1771004290354&force_referer=https%3A%2F%2Fwww.google.com%2F"
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -20,7 +70,7 @@
   <header class="header">
     <div class="container header__inner">
       <a class="brand" href="#top" aria-label="Apartments Grbić">
-        <img class="brand__logo" src="assets/logo.jpg" alt="Apartments Grbić logo" />
+        <img class="brand__logo" src="assets/logo.jpg" alt="Apartments Grbić logo" decoding="async" fetchpriority="high" />
         <span class="brand__text" data-i18n="logo_text">Apartmani Grbić</span>
       </a>
 
@@ -61,7 +111,7 @@
           </h1>
 
           <p class="lead hero__lead" data-i18n="hero_lead">
-            Savršeno za parove i obitelji koji žele mirnu bazu za istraživanje Dubrovnika.<br> 
+            Savršeno za parove i obitelji koji žele mirnu bazu za istraživanje Dubrovnika.<br>
             Ljetni termini se brzo popunjavaju. Pošaljite upit na vrijeme.
           </p>
 
@@ -100,9 +150,9 @@
 
               <div class="thumbCarousel">
                 <div class="thumbCarousel__track">
-                  <img class="thumbCarousel__img" src="assets/apt1-1.jpg" alt="Apartman 1">
-                  <img class="thumbCarousel__img" src="assets/apt1-2.jpg" alt="Apartman 1">
-                  <img class="thumbCarousel__img" src="assets/apt1-3.jpg" alt="Apartman 1">
+                  <img class="thumbCarousel__img" src="assets/apt1-1.jpg" alt="Apartman 1" loading="eager" decoding="async" fetchpriority="high">
+                  <img class="thumbCarousel__img" src="assets/apt1-2.jpg" alt="Apartman 1" loading="lazy" decoding="async">
+                  <img class="thumbCarousel__img" src="assets/apt1-3.jpg" alt="Apartman 1" loading="lazy" decoding="async">
                 </div>
 
                 <button class="thumbCarousel__btn thumbCarousel__btn--prev">‹</button>
@@ -123,17 +173,16 @@
             </div>
           </article>
 
-
           <!-- APARTMENT 2 -->
           <article class="card reveal" style="transition-delay:60ms;">
             <div class="card__top">
 
               <div class="thumbCarousel">
                 <div class="thumbCarousel__track">
-                  <img class="thumbCarousel__img" src="assets/apt2-1.jpg" alt="Apartman 2">
-                  <img class="thumbCarousel__img" src="assets/apt2-2.jpg" alt="Apartman 2">
-                  <img class="thumbCarousel__img" src="assets/apt2-3.jpg" alt="Apartman 2">
-                  <img class="thumbCarousel__img" src="assets/apt2-4.jpg" alt="Apartman 2">
+                  <img class="thumbCarousel__img" src="assets/apt2-1.jpg" alt="Apartman 2" loading="lazy" decoding="async">
+                  <img class="thumbCarousel__img" src="assets/apt2-2.jpg" alt="Apartman 2" loading="lazy" decoding="async">
+                  <img class="thumbCarousel__img" src="assets/apt2-3.jpg" alt="Apartman 2" loading="lazy" decoding="async">
+                  <img class="thumbCarousel__img" src="assets/apt2-4.jpg" alt="Apartman 2" loading="lazy" decoding="async">
                 </div>
 
                 <button class="thumbCarousel__btn thumbCarousel__btn--prev">‹</button>
@@ -154,16 +203,15 @@
             </div>
           </article>
 
-
           <!-- APARTMENT 3 -->
           <article class="card reveal" style="transition-delay:120ms;">
             <div class="card__top">
 
               <div class="thumbCarousel">
                 <div class="thumbCarousel__track">
-                  <img class="thumbCarousel__img" src="assets/apt3-1.jpg" alt="Apartman 3">
-                  <img class="thumbCarousel__img" src="assets/apt3-2.jpg" alt="Apartman 3">
-                  <img class="thumbCarousel__img" src="assets/apt3-3.jpg" alt="Apartman 3">
+                  <img class="thumbCarousel__img" src="assets/apt3-1.jpg" alt="Apartman 3" loading="lazy" decoding="async">
+                  <img class="thumbCarousel__img" src="assets/apt3-2.jpg" alt="Apartman 3" loading="lazy" decoding="async">
+                  <img class="thumbCarousel__img" src="assets/apt3-3.jpg" alt="Apartman 3" loading="lazy" decoding="async">
                 </div>
 
                 <button class="thumbCarousel__btn thumbCarousel__btn--prev">‹</button>
@@ -184,17 +232,16 @@
             </div>
           </article>
 
-
           <!-- APARTMENT 4 -->
           <article class="card reveal" style="transition-delay:180ms;">
             <div class="card__top">
 
               <div class="thumbCarousel">
                 <div class="thumbCarousel__track">
-                  <img class="thumbCarousel__img" src="assets/apt4-1.jpg" alt="Apartman 4">
-                  <img class="thumbCarousel__img" src="assets/apt4-2.jpg" alt="Apartman 4">
-                  <img class="thumbCarousel__img" src="assets/apt4-3.jpg" alt="Apartman 4">
-                  <img class="thumbCarousel__img" src="assets/apt4-4.jpg" alt="Apartman 4">
+                  <img class="thumbCarousel__img" src="assets/apt4-1.jpg" alt="Apartman 4" loading="lazy" decoding="async">
+                  <img class="thumbCarousel__img" src="assets/apt4-2.jpg" alt="Apartman 4" loading="lazy" decoding="async">
+                  <img class="thumbCarousel__img" src="assets/apt4-3.jpg" alt="Apartman 4" loading="lazy" decoding="async">
+                  <img class="thumbCarousel__img" src="assets/apt4-4.jpg" alt="Apartman 4" loading="lazy" decoding="async">
                 </div>
 
                 <button class="thumbCarousel__btn thumbCarousel__btn--prev">‹</button>
@@ -225,21 +272,18 @@
     <section class="section section--alt" id="about">
       <div class="container">
         <div class="aboutMini card reveal">
-
-          <!-- Title top-left -->
           <h2 class="h2 aboutMini__title" data-i18n="about_title">O nama</h2>
 
-          <!-- Avatar centered under title -->
           <div class="aboutMini__media">
             <img
               class="aboutMini__avatar"
               src="assets/about.jpg"
               alt="Ana Grbić – domaćin Apartments Grbić"
               loading="lazy"
+              decoding="async"
             />
           </div>
 
-          <!-- Text + CTA left as before -->
           <div class="aboutMini__content">
             <p class="muted aboutMini__text" data-i18n="about_text">
               Ana Grbić je domaćin s više od 20 godina iskustva u iznajmljivanju i preko 200 zadovoljnih gostiju.
@@ -339,12 +383,12 @@
         </div>
 
         <div class="gallery">
-          <img src="assets/gallery1.jpg" alt="Apartments Grbić" class="gallery__item reveal" />
-          <img src="assets/gallery2.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:60ms;" />
-          <img src="assets/gallery3.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:120ms;" />
-          <img src="assets/gallery4.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:180ms;" />
-          <img src="assets/gallery5.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:240ms;" />
-          <img src="assets/gallery6.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:300ms;" />
+          <img src="assets/gallery1.jpg" alt="Apartments Grbić" class="gallery__item reveal" loading="lazy" decoding="async" />
+          <img src="assets/gallery2.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:60ms;" loading="lazy" decoding="async" />
+          <img src="assets/gallery3.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:120ms;" loading="lazy" decoding="async" />
+          <img src="assets/gallery4.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:180ms;" loading="lazy" decoding="async" />
+          <img src="assets/gallery5.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:240ms;" loading="lazy" decoding="async" />
+          <img src="assets/gallery6.jpg" alt="Apartments Grbić" class="gallery__item reveal" style="transition-delay:300ms;" loading="lazy" decoding="async" />
         </div>
       </div>
     </section>
@@ -354,8 +398,7 @@
       <img src="" alt="Preview" />
     </div>
 
-
-      <!-- LOCATION -->
+    <!-- LOCATION -->
     <section class="section section--alt" id="location">
       <div class="container">
         <div class="section__head reveal">
@@ -376,7 +419,6 @@
               <li data-i18n="loc_li5"> Restorani i šetnica u blizini</li>
             </ul>
 
-            <!-- CTA buttons -->
             <div class="location__actions">
               <a class="btn btn--ghost" href="#contact" data-i18n="loc_cta">
                 Pošalji upit
@@ -406,7 +448,7 @@
       </div>
     </section>
 
-            <!-- BLOG -->
+    <!-- BLOG -->
     <section class="section" id="blog">
       <div class="container">
         <div class="section__head reveal">
@@ -418,10 +460,9 @@
 
         <div class="grid grid--3 blog__grid">
 
-          <!-- BLOG 1 -->
           <a class="card card--link blog__card reveal" href="pages/blog.html">
             <div class="blog__image">
-              <img src="assets/blog1.jpg" alt="Izleti Dubrovnik" />
+              <img src="assets/blog1.jpg" alt="Izleti Dubrovnik" loading="lazy" decoding="async" />
             </div>
             <div class="card__body">
               <h3 class="h3" data-i18n="blog_1_title">Izleti (Dubrovnik)</h3>
@@ -432,10 +473,9 @@
             </div>
           </a>
 
-          <!-- BLOG 2 -->
           <a class="card card--link blog__card reveal" style="transition-delay:60ms;" href="pages/blog.html">
             <div class="blog__image">
-              <img src="assets/blog2.jpg" alt="Plaže Mlini" />
+              <img src="assets/blog2.jpg" alt="Plaže Mlini" loading="lazy" decoding="async" />
             </div>
             <div class="card__body">
               <h3 class="h3" data-i18n="blog_2_title">Plaže (Mlini i okolica)</h3>
@@ -446,10 +486,9 @@
             </div>
           </a>
 
-          <!-- BLOG 3 -->
           <a class="card card--link blog__card reveal" style="transition-delay:120ms;" href="pages/blog.html">
             <div class="blog__image">
-              <img src="assets/blog3.jpg" alt="Dolazak i parking" />
+              <img src="assets/blog3.jpg" alt="Dolazak i parking" loading="lazy" decoding="async" />
             </div>
             <div class="card__body">
               <h3 class="h3" data-i18n="blog_3_title">Dolazak i parking</h3>
@@ -463,7 +502,6 @@
         </div>
       </div>
     </section>
-
 
     <!-- FAQ -->
     <section class="section section--alt" id="faq">
@@ -616,5 +654,28 @@
   </footer>
 
   <script src="main.js" defer></script>
+
+  <!-- BACK TO TOP -->
+<button id="backToTop" aria-label="Back to top">
+  <svg class="progress-ring" width="56" height="56">
+    <circle
+      class="progress-ring__bg"
+      cx="28"
+      cy="28"
+      r="24"
+      stroke-width="2"
+    />
+    <circle
+      class="progress-ring__progress"
+      cx="28"
+      cy="28"
+      r="24"
+      stroke-width="2"
+    />
+  </svg>
+
+  <span class="arrow">↑</span>
+</button>
+
 </body>
 </html>
