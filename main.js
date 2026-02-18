@@ -20,6 +20,9 @@ const langLabel = $("#langLabel");
 /* ---------- i18n dictionary ---------- */
 const dict = {
   hr: {
+    // LOGO
+    logo_text: "Apartmani Grbić",
+
     // NAV (index)
     nav_apartments: "Apartmani",
     nav_amenities: "O nama",
@@ -184,6 +187,9 @@ const dict = {
   },
 
   en: {
+    // LOGO
+    logo_text: "Apartments Grbić",
+
     // NAV (index)
     nav_apartments: "Apartments",
     nav_amenities: "About Us",
