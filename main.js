@@ -41,7 +41,7 @@ const dict = {
       "Savršeno za parove i obitelji koji žele mirnu bazu za istraživanje Dubrovnika.<br>Ljetni termini se brzo popunjavaju. Pošaljite upit na vrijeme.",
     hero_cta_primary: "Provjeri dostupnost",
     hero_cta_secondary: "Pogledaj apartmane",
-    hero_guests: "👥 4000+ zadovoljnih gostiju",
+    hero_guests: "4k+ zadovoljnih gostiju",
 
     // APARTMENTS (index)
     apts_title: "Apartmani",
@@ -75,7 +75,7 @@ const dict = {
     // ABOUT (index)
     about_title: "Vaš domaćin",
     about_text:
-      "Ana Grbić je domaćin s više od 20 godina iskustva u iznajmljivanju i preko 4000 zadovoljnih gostiju. Kao majka troje djece, posebnu pažnju posvećuje čistoći, sigurnosti i ugodnom boravku. Tu je za preporuke, pomoć i sve što Vam treba tijekom odmora.",
+      "Ana Grbić je domaćin s više od 20 godina iskustva u iznajmljivanju i preko 4k zadovoljnih gostiju. Kao majka troje djece, posebnu pažnju posvećuje čistoći, sigurnosti i ugodnom boravku. Tu je za preporuke i sve što Vam treba tijekom odmora.",
     about_cta: "Pošalji upit",
     about_cta_2: "Pogledaj recenzije",
 
@@ -208,7 +208,7 @@ const dict = {
       "Perfect for couples and families looking for a peaceful base near Dubrovnik.<br>Summer dates fill up quickly. Check availability early.",
     hero_cta_primary: "Check availability",
     hero_cta_secondary: "View apartments",
-    hero_guests: "👥 4000+ satisfied guests",
+    hero_guests: "4k+ happy guests",
 
     // APARTMENTS (index)
     apts_title: "Apartments",
@@ -242,7 +242,7 @@ const dict = {
     // ABOUT (index)
     about_title: "Your host",
     about_text:
-      "Ana Grbić has over 20 years of experience hosting and more than 4000 satisfied guests. As a mother of three, she focuses on cleanliness, safety, and a comfortable stay. She is always available for recommendations, help, and anything you may need during your holiday.",
+      "Ana Grbić has over 20 years of experience hosting and more than 4k satisfied guests. As a mother of three, she focuses on cleanliness, safety, and a comfortable stay. She is always available for recommendations and anything you may need during your holiday.",
     about_cta: "Send inquiry",
     about_cta_2: "View reviews",
 
@@ -870,3 +870,22 @@ function initBackToTop() {
 }
 
 initBackToTop();
+
+(function initWhatsAppScroll(){
+  const btn = document.getElementById("whatsappBtn");
+  if (!btn) return;
+
+  const showAt = 300; // px scrolla
+  const onScroll = () => {
+    const visible = window.scrollY > showAt;
+    btn.style.opacity = visible ? "1" : "0";
+    btn.style.pointerEvents = visible ? "auto" : "none";
+    btn.style.transform = visible ? "translateY(0)" : "translateY(8px)";
+  };
+
+  // initial + listeners
+  btn.style.opacity = "0";
+  btn.style.pointerEvents = "none";
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+})();
